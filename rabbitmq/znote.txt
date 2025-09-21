@@ -1,8 +1,5 @@
 
 
-I've find a official python client for AMQP protocol.
-Here is the link: https://pypi.python.org/pypi/amqp/
-
 pip install amqp
 
 import amqp.connection as connection
