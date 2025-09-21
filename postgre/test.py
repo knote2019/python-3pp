@@ -1,5 +1,3 @@
-import datetime
-
 import psycopg2
 
 # 连接数据库
