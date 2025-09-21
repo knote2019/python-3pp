@@ -1,0 +1,186 @@
+openapi: "3.0.0"
+info:
+  title: Server API
+  version: '1.0'
+  description: >
+    <h3>server descripiton</h3>
+
+paths:
+  /notifier/subscriber:
+    post:
+      tags:
+      - "subscriber operation"
+      operationId: "create_subscriber"
+      x-openapi-router-controller: api.create_subscriber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriberBody'
+        required: true
+      responses:
+        "201":
+          description: "create subscriber success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberId'
+        "304":
+          description: "create subscriber failed"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: "create with internal error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+      - "subscriber operation"
+      operationId: "update_subscriber"
+      x-openapi-router-controller: api.update_subscriber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscriber'
+      responses:
+        "201":
+          description: "update subscriber success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberId'
+        "304":
+          description: "update subscriber failed"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: "update with internal error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /notifier/subscriber/{subscriberid}:
+    delete:
+      tags:
+      - "subscriber operation"
+      operationId: "delete_subscriber"
+      x-openapi-router-controller: api.delete_subscriber
+      parameters:
+      - name: "subscriberid"
+        in: "path"
+        required: true
+        explode: false
+        schema:
+          $ref: '#/components/schemas/SubscriberId'
+      responses:
+        "201":
+          description: "delete subscriber success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberId'
+        "304":
+          description: "delete subscriber failed"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: "delete with internal error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      tags:
+      - "subscriber operation"
+      operationId: "get_subscriber"
+      x-openapi-router-controller: api.get_subscriber
+      parameters:
+      - name: "subscriberid"
+        in: "path"
+        required: true
+        explode: false
+        schema:
+          $ref: '#/components/schemas/SubscriberId'
+      responses:
+        "201":
+          description: "get subscriber success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber'
+        "304":
+          description: "delete subscriber failed"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: "delete with internal error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    ApiVersion:
+      type: string
+
+    Subscriber:
+      type: "object"
+      properties:
+        id:
+          $ref: '#/components/schemas/SubscriberId'
+        body:
+          $ref: '#/components/schemas/SubscriberBody'
+
+    SubscriberId:
+      type: integer
+
+    SubscriberTopic:
+      type: string
+
+    SubscriberProtocol:
+      type: string
+
+    SubscriberBody:
+      properties:
+        topic:
+          type: string
+          enum:
+          - Openstack
+          - Infrastructure
+          - Alarm
+        protocol:
+          type: string
+          enum:
+          - HTTPS
+          - SNMPv3
+        subscriber:
+          type: string
+        extra_info:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+
+    KeyValuePair:
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+
+    Error:
+      type: string

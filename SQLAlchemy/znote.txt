@@ -1,0 +1,29 @@
+
+
+如果想找一种既支持原生SQL又支持ORM的工具，那么SQLAlchemy是最后的选择。
+
+
+说明：
+relationship.back_populates是广泛使用的relationship.backref的升级版，
+backref仍然可以使用，并且将一直可以使用。back_populates只是更加冗长、更容易操作。
+
+
+backref只需要在一边写，back_populates两边都要写。
+backref只是一个快捷方式，可以构建两个互相引用的relationship()。
+
+
+class Parent(Base):
+    __tablename__ = 'parent'
+    id = Column(Integer, primary_key=True)
+    children = relationship("Child", back_populates="parent")
+
+class Child(Base):
+    __tablename__ = 'child'
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey('parent.id'))
+    parent = relationship("Parent", back_populates="children")
+
+
+relationship()中用于指定对端class的参数，可以用字符串类型，
+是基于一个假设，即所有的类都是用Declarative系统声明的。
+

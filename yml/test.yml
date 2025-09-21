@@ -1,0 +1,5 @@
+---
+bootstrap.servers: monitor1:9092,monitor2:9092,monitor3:9092
+group.id: notifier-requeuer-group
+auto.offset.reset: earliest
+session.timeout.ms: 10000

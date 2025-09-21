@@ -1,0 +1,24 @@
+
+
+pip3 install pytest
+pip3 install allure-pytest
+
+pytest生成测试报告:
+pytest demo --junit-xml=report.xml
+
+
+pytest_addoption 是 pytest 提供的一个特殊 hook 函数，它不属于fixture或普通测试函数。
+通过 parser.addoption 注册你自定义的选项。
+
+# conftest.py
+def pytest_addoption(parser):
+    parser.addoption(
+        "--version",
+        action="store",
+        default="foo",
+        help="自定义参数说明"
+    )
+
+它只能出现在 conftest.py 文件里。
+
+然后可以在 fixture 或测试里用 request.config.getoption("--version") 取值。

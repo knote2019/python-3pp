@@ -1,0 +1,11 @@
+
+
+在python中libxml2叫lxml。
+所以要用：pip install lxml 安装
+
+官网地址:
+http://xmlsoft.org/index.html
+https://lxml.de/
+
+pip install xmltodict
+`xmltodict` is a Python module that makes working with XML feel like you are working with [JSON]

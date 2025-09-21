@@ -1,0 +1,13 @@
+
+
+安装依赖包：
+yum install -y librdkafka-devel
+yum install -y python3-confluent-kafka # 或者 pip install confluent-kafka
+
+https://github.com/edenhill/librdkafka
+https://github.com/confluentinc/confluent-kafka-python
+
+librdkafka的配置参数：
+https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
+
+https://docs.confluent.io/current/clients/confluent-kafka-python/index.html?highlight=admin
